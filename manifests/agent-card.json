@@ -1,0 +1,265 @@
+{
+ "protocolVersion": "0.3.0",
+ "name": "falcon.sol",
+ "description": "Use when an agent needs Solana wallet risk checks, wallet PnL and smart-money signals, payee safety checks, SEC financials and comps, LBO and credit models, or deal docs: one MCP endpoint, 20 read-only tools, paid per call via x402 USDC with signed receipts.",
+ "url": "https://falcon-sol-agents.vercel.app/mcp",
+ "preferredTransport": "JSONRPC",
+ "provider": {
+  "organization": "falcon.sol",
+  "url": "https://falcon-sol-agents.vercel.app"
+ },
+ "version": "0.2.0",
+ "documentationUrl": "https://falcon-sol-agents.vercel.app/llms-full.txt",
+ "capabilities": {
+  "streaming": false,
+  "pushNotifications": false
+ },
+ "defaultInputModes": [
+  "application/json"
+ ],
+ "defaultOutputModes": [
+  "application/json"
+ ],
+ "skills": [
+  {
+   "id": "ping",
+   "name": "ping",
+   "description": "Free health check. Does not spend USDC. Confirms the MCP server is up and does not read a wallet. [falcon.sol solana-wallet-intel. Free, no payment.]",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "wallet_preview",
+   "name": "wallet preview",
+   "description": "Free teaser. Call this before any paid wallet tool. Returns SOL balance, last active time, how many transactions landed in the last 24 hours, and a dormant or recently-active label. Does not spend USDC. Pass one base58 Solana address. Invalid addresses return an error and do not ask for payment. Upg",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "token_check_demo",
+   "name": "token check demo",
+   "description": "Free demo. Try free, then pay per call. Pass one Solana token mint and get a real rug-check: riskScore, riskLevel, a one-line verdict, the top risk flags, liquidity, market cap, age, and pump.fun status. Uses free public data only. Cached 60 seconds per mint and rate-limited to 20 calls a minute per",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "wallet_profile",
+   "name": "wallet profile",
+   "description": "Use this when you need priced holdings and windowed PnL for one Solana wallet. Holdings valued in USD, a short plain-language summary, windowed realized and unrealized PnL, win rate, and evidence-backed labels such as active memecoin trader. Includes copyTradeScore and copyTradeGrade: copy-return af",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "token_trending",
+   "name": "token trending",
+   "description": "Use this before you buy, swap, or recommend a Solana memecoin: trending tokens with a rug-check on each one. Every token gets a riskScore (0 to 100), a riskLevel, and a one-line verdict backed by top-10 holder share, mint and freeze authority, LP lock, and sniper or bundle share of early supply, plu",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "wallet_funding",
+   "name": "wallet funding",
+   "description": "Use this when you need a wallet's first SOL funder and whether other wallets look like the same operator. Find a wallet's first SOL funder, flag wallets that share that funder or a CEX deposit address, and return a cluster id with plain-language sybil risk reasons. Labeled exchange hot wallets are n",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "wallet_quick",
+   "name": "wallet quick",
+   "description": "Use this for a cheap copy-trade screen before paying for a full profile. Cheap copy-trade screen for one wallet: windowed realized PnL, win rate, closed trades, last active time, bot, exchange, net-winner and dormant flags, plus copyTradeScore and copyTradeGrade (copy-return after a 3s delay and a 3",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "wallet_quick_batch",
+   "name": "wallet quick batch",
+   "description": "Quick screen (windowed realized PnL, win rate, copyTradeScore, copyTradeGrade, bot, exchange, net-winner and dormant flags) for up to 10 Solana wallets in one paid call, ranked by realized PnL. Pass addresses comma-separated. Costs $0.015 USDC (15000 base units) via x402. The same price is charged f",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "payee_check",
+   "name": "payee check",
+   "description": "Call this before your agent pays an unfamiliar x402 payTo address or endpoint. Checks public sanctions lists (OFAC SDN crypto addresses), the ScamSniffer scam list, on-chain wallet age, activity and program status on Solana or Base, and optionally the endpoint's unpaid 402 challenge (payTo mismatch,",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "pretrade",
+   "name": "pretrade",
+   "description": "Call this before your agent buys a Solana token. One call runs five isolated checks: token risk (sell-side skim and fee/hook controls), top-holder concentration (the factor behind our bundle score), stablecoin lookalike detection, xStock status (issuer mint list, lookalikes and issuer objections), a",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "preview_financials",
+   "name": "preview financials",
+   "description": "falcon.sol: Free: latest fiscal-year revenue and net income for a US ticker or CIK, from SEC EDGAR. [falcon.sol comps. Free, no payment.]",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "suggest_peers",
+   "name": "suggest peers",
+   "description": "falcon.sol: Free: SIC-based peer tickers for a US company, ranked by revenue closeness, ready to pass to get_comps. [falcon.sol comps. Free, no payment.]",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "get_financials",
+   "name": "get financials",
+   "description": "falcon.sol: Standardized financials (up to 15 FY + TTM, balance sheet, ratios, XBRL provenance) from SEC EDGAR. Costs $0.01 USDC (x402). [falcon.sol comps. Paid: $0.01 USDC per call via x402 (Base or Solana). Unpaid calls return x402 PaymentRequirements; pay with an x402-MCP client (_meta \"x402/paym",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "get_comps",
+   "name": "get comps",
+   "description": "falcon.sol: Trading comps table (market cap, EV, EV/Revenue, EV/EBITDA, P/E, P/FCF, margins, peer medians) for up to 12 tickers. Costs $0.05 USDC (x402). [falcon.sol comps. Paid: $0.05 USDC per call via x402 (Base or Solana). Unpaid calls return x402 PaymentRequirements; pay with an x402-MCP client ",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "get_credit",
+   "name": "get credit",
+   "description": "falcon.sol: Lev-fin credit comps (leverage, coverage, FCF/debt, debt capacity, rated structures, memo) for up to 12 tickers. Costs $0.24 USDC (x402). [falcon.sol comps. Paid: $0.24 USDC per call via x402 (Base or Solana). Unpaid calls return x402 PaymentRequirements; pay with an x402-MCP client (_me",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "get_lbo",
+   "name": "get lbo",
+   "description": "falcon.sol: LBO snapshot (sources & uses, 3 structures, IRR/MOIC, IRR grid, memo) for a US ticker, exit at peer-median EV/EBITDA. Costs $4.49 USDC (x402). [falcon.sol comps. Paid: $4.49 USDC per call via x402 (Base or Solana). Unpaid calls return x402 PaymentRequirements; pay with an x402-MCP client",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "get_gpu_comps",
+   "name": "get gpu comps",
+   "description": "falcon.sol: Listed USD per GPU-hour comps (RunPod, Modal, Lambda, CoreWeave public price pages) with source URLs, fetched_at, min/median/max and quote percentile. Costs $0.04 USDC (x402). [falcon.sol comps. Paid: $0.04 USDC per call via x402 (Base or Solana). Unpaid calls return x402 PaymentRequirem",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "preview_document",
+   "name": "preview document",
+   "description": "Free: extract page 1 of a PDF (auto-detects invoice/receipt/PO/W-9/bank statement) with per-field confidence. [falcon.sol docs. Free, no payment.]",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "extract_document",
+   "name": "extract document",
+   "description": "Full extraction of all pages. Costs $0.03 USDC (x402). [falcon.sol docs. Paid: $0.03 USDC per call via x402 (Base or Solana). Unpaid calls return x402 PaymentRequirements; pay with an x402-MCP client (_meta \"x402/payment\") and retry.]",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "spread_bank_statement",
+   "name": "spread bank statement",
+   "description": "Bank statement \u2192 every transaction + underwriting metrics (ADB, NSF, MCA/loan positions, revenue trend, DSCR inputs, tamper flags). Costs $0.40 USDC (x402). [falcon.sol docs. Paid: $0.40 USDC per call via x402 (Base or Solana). Unpaid calls return x402 PaymentRequirements; pay with an x402-MCP clien",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "preview_note",
+   "name": "preview note",
+   "description": "Free indicative quote: fair coupon/participation rounded to 0.5%, probabilities, payoff diagram. [falcon.sol structures. Free, no payment.]",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "market_snapshot",
+   "name": "market snapshot",
+   "description": "Free: live spot, Deribit implied vol (DVOL) and 30d realized vol for BTC, ETH or SOL. [falcon.sol structures. Free, no payment.]",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  },
+  {
+   "id": "price_note",
+   "name": "price note",
+   "description": "falcon.sol structures: structured-note pricing for crypto. Send a JSON term sheet (autocallable, barrier reverse convertible, range accrual, principal-protected, shark fin) on BTC, ETH or SOL; get the fair coupon or participation, probabilities (autocall per observation, knock-in, loss), greeks, a s",
+   "tags": [
+    "x402",
+    "solana",
+    "finance"
+   ]
+  }
+ ],
+ "additionalInterfaces": [
+  {
+   "url": "https://falcon-sol-agents.vercel.app/mcp",
+   "transport": "MCP streamable-http"
+  },
+  {
+   "url": "https://falcon-sol-agents.vercel.app/.well-known/x402",
+   "transport": "x402 HTTP"
+  }
+ ]
+}

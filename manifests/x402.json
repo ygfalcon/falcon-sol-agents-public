@@ -1,0 +1,1240 @@
+{
+  "version": 1,
+  "resources": [
+    {
+      "method": "GET",
+      "path": "/wallet/profile",
+      "url": "https://solana-wallet-intel-phi.vercel.app/wallet/profile",
+      "description": "Use this when you need priced holdings and windowed PnL for one Solana wallet. Holdings valued in USD, a short plain-language summary, windowed realized and unrealized PnL, win rate, and evidence-backed labels such as active memecoin trader. Includes copyTradeScore and copyTradeGrade: copy-return after a 3s delay and a 3.6% round trip, win rate, sample-size shrinkage, and bot or insider penalties. The score is null when no close lasted at least 3 seconds. txLimit is an integer from 5 to 25 and defaults to 20. Call free wallet_preview first if you only need SOL balance and last-active time, or wallet_quick for a cheaper copy-trade screen.",
+      "mimeType": "application/json",
+      "protocol": "x402",
+      "scheme": "exact",
+      "price": "$0.009",
+      "amount": "9000",
+      "currency": "USDC",
+      "decimals": 6,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Solana wallet address in base58 (32 to 44 characters). Unpaid requests return HTTP 402. A signed request with an invalid address returns HTTP 400 and is not charged."
+          },
+          "txLimit": {
+            "type": "string",
+            "description": "Recent signatures to inspect, integer from 5 to 25. Defaults to 20. Unpaid requests return HTTP 402. A signed request with an out-of-range value returns HTTP 400 and is not charged."
+          }
+        },
+        "required": [
+          "address"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "outputExample": {
+        "address": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+        "summary": "Holds $1,280.40 across 4 priced tokens. Largest position is SOL at 61%. Estimated realized PnL is +$42.10 and unrealized PnL is -$8.40 (win rate 60% on 5 closes). Labels: active memecoin trader, net winner.",
+        "portfolioUsd": 1280.4,
+        "labels": [
+          "active memecoin trader",
+          "net winner"
+        ],
+        "labelDetails": [
+          {
+            "id": "active_memecoin_trader",
+            "title": "active memecoin trader",
+            "category": "activity",
+            "confidence": "medium",
+            "evidence": "5 swaps traded a token outside the blue-chip and stablecoin set."
+          }
+        ],
+        "pnl": {
+          "realizedUsd": 42.1,
+          "unrealizedUsd": -8.4,
+          "winRate": 0.6,
+          "partialCostBasis": false,
+          "priceBasis": "execution"
+        },
+        "copyTradeScore": 0.556,
+        "copyTradeGrade": "C"
+      },
+      "example": {
+        "address": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+        "txLimit": "20"
+      },
+      "tags": [
+        "solana",
+        "wallet",
+        "x402"
+      ],
+      "categories": [
+        "solana",
+        "wallet"
+      ],
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+          "amount": "9000",
+          "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "payTo": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+          "decimals": 6
+        },
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "9000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0xa30f3C68f2F6067EE5b9d5f651426E44Ea8AdAE9",
+          "decimals": 6
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/token/trending",
+      "url": "https://solana-wallet-intel-phi.vercel.app/token/trending",
+      "description": "Use this before you buy, swap, or recommend a Solana memecoin: trending tokens with a rug-check on each one. Every token gets a riskScore (0 to 100), a riskLevel, and a one-line verdict backed by top-10 holder share, mint and freeze authority, LP lock, and sniper or bundle share of early supply, plus liquidity, market cap, 5m/1h/24h price and volume, and pump.fun status. Unreadable checks are marked unknown, never called safe. $0.005 USDC, free preview at /token/trending/preview. The list includes liquidity, market cap, pair age, 5m/1h/24h price and volume, buy/sell ratio, pump.fun bonding or graduation, and links to pump.fun, DexScreener, and Solscan. Each token has a one-line verdict, riskScore (0 clean to 100), riskLevel (low, medium, high, or unknown), and a risk breakdown with evidence and confidence: top-10 share, mint and freeze authority, LP lock percent, and sniper or bundle share of early supply. riskLevel is unknown when the holder, authority, LP, and sniper checks are all unread, and maxRisk leaves those tokens out. Holder percent falls back to the public RugCheck report at medium confidence when the public RPC cannot list the largest accounts. A successful RPC holder read is kept. Holder-concentration change over 5m/1h/24h is filled when this process has seen the mint before. A check that cannot be read says so, uses low confidence, and is not flagged. On-chain safety flags are plain-English sentences that fire when the top 10 holders own 50% or more, mint or freeze authority is still active, LP is unlocked, or snipers and bundled wallets took 20% or more of early supply. Market flags are short codes: low_liquidity, thin_volume, newly_launched, extreme_move, wash_suspect, paid_boost. Thin, new, and wash-like books are ranked down. The summary block counts tokens by risk level and names the top movers. limit is an integer from 1 to 25 and defaults to 15. minLiquidity is an optional USD floor. maxRisk is low, medium, high, or an integer from 0 to 100.",
+      "mimeType": "application/json",
+      "protocol": "x402",
+      "scheme": "exact",
+      "price": "$0.005",
+      "amount": "5000",
+      "currency": "USDC",
+      "decimals": 6,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "string",
+            "description": "How many tokens to return, integer from 1 to 25. Defaults to 15. Unpaid requests return HTTP 402. A signed request with an out-of-range value returns HTTP 400 and is not charged. MCP also accepts a JSON integer."
+          },
+          "minLiquidity": {
+            "type": "string",
+            "description": "Optional minimum pool liquidity in USD, a non-negative number such as 15000. Tokens with unknown liquidity are left out. Unpaid requests return HTTP 402. A signed request with a bad value returns HTTP 400 and is not charged. MCP also accepts a JSON number."
+          },
+          "maxRisk": {
+            "type": "string",
+            "description": "Optional maximum risk. low, medium, or high keeps tokens at or below that level. An integer from 0 to 100 keeps tokens with riskScore at or below that number. Unknown risk is left out. Unpaid requests return HTTP 402. A signed request with a bad value returns HTTP 400 and is not charged."
+          }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "summary",
+          "tokens"
+        ],
+        "properties": {
+          "summary": {
+            "type": "string"
+          },
+          "summaryBlock": {
+            "type": "object",
+            "properties": {
+              "returned": {
+                "type": "integer"
+              },
+              "scanned": {
+                "type": "integer"
+              },
+              "byRiskLevel": {
+                "type": "object"
+              },
+              "topMovers": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "timestamps": {
+            "type": "object",
+            "properties": {
+              "asOf": {
+                "type": "string",
+                "description": "ISO-8601 time the board was built."
+              },
+              "generatedAt": {
+                "type": "string",
+                "description": "ISO-8601 time the board was built. Matches asOf."
+              }
+            }
+          },
+          "etag": {
+            "type": "string",
+            "description": "SHA-256 of the filtered body. Also sent as the ETag header."
+          },
+          "query": {
+            "type": "object",
+            "description": "The limit, minLiquidity, and maxRisk that were applied."
+          },
+          "tokens": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "rank",
+                "symbol",
+                "riskFlags",
+                "riskScore",
+                "riskLevel"
+              ],
+              "properties": {
+                "rank": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "mint": {
+                  "type": "string",
+                  "description": "Token mint address."
+                },
+                "symbol": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "priceUsd": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "liquidityUsd": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "marketCapUsd": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "description": "USD market cap from the pair feed. Null when the feed does not publish one."
+                },
+                "volume24hUsd": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "priceChange24hPct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "ageHours": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "verdict": {
+                  "type": "string",
+                  "description": "One plain-English line. Heuristic, not a promise that a token is safe."
+                },
+                "momentum": {
+                  "type": "object",
+                  "description": "Price, volume, and buy/sell ratio over 5 minutes, 1 hour, and 24 hours. Holder change is the percent change in top-10 concentration versus an earlier sample from this process.",
+                  "properties": {
+                    "priceChangePct": {
+                      "type": "object"
+                    },
+                    "volumeUsd": {
+                      "type": "object"
+                    },
+                    "buySellRatio": {
+                      "type": "object"
+                    },
+                    "holderChangePct": {
+                      "type": "object"
+                    },
+                    "confidence": {
+                      "type": "string",
+                      "enum": [
+                        "high",
+                        "medium",
+                        "low"
+                      ]
+                    }
+                  }
+                },
+                "pump": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "bonding",
+                        "graduated",
+                        "not_pump",
+                        "unknown"
+                      ]
+                    },
+                    "progressPct": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "confidence": {
+                      "type": "string",
+                      "enum": [
+                        "high",
+                        "medium",
+                        "low"
+                      ]
+                    }
+                  }
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "pumpfun": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "dexscreener": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "solscan": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "riskBreakdown": {
+                  "type": "array",
+                  "description": "One row per safety check: holders, mint_authority, freeze_authority, lp_lock, snipers. value is the evidence. flagged is true only when the check crossed its threshold.",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "riskFlags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Plain-English on-chain safety sentences plus market codes: low_liquidity, thin_volume, newly_launched, extreme_move, wash_suspect, paid_boost."
+                },
+                "riskScore": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100,
+                  "description": "0 is clean, 100 is high risk."
+                },
+                "riskLevel": {
+                  "type": "string",
+                  "enum": [
+                    "low",
+                    "medium",
+                    "high",
+                    "unknown"
+                  ],
+                  "description": "unknown means holder, authority, LP, and sniper checks were all unread. maxRisk leaves unknown tokens out."
+                },
+                "checks": {
+                  "type": "object",
+                  "properties": {
+                    "holders": {
+                      "type": "object",
+                      "properties": {
+                        "top10Share": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        },
+                        "holderPct": {
+                          "type": [
+                            "number",
+                            "null"
+                          ],
+                          "description": "Top-10 holder share as a percent."
+                        },
+                        "confidence": {
+                          "type": "string",
+                          "enum": [
+                            "high",
+                            "medium",
+                            "low"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "authorities": {
+                      "type": "object",
+                      "properties": {
+                        "mintAuthority": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "freezeAuthority": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "mintStatus": {
+                          "type": "string",
+                          "enum": [
+                            "active",
+                            "revoked",
+                            "unknown"
+                          ]
+                        },
+                        "freezeStatus": {
+                          "type": "string",
+                          "enum": [
+                            "active",
+                            "revoked",
+                            "unknown"
+                          ]
+                        },
+                        "confidence": {
+                          "type": "string",
+                          "enum": [
+                            "high",
+                            "medium",
+                            "low"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "lp": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "burned",
+                            "locked",
+                            "unlocked",
+                            "concentrated",
+                            "unknown"
+                          ]
+                        },
+                        "lockedPct": {
+                          "type": [
+                            "number",
+                            "null"
+                          ],
+                          "description": "Percent of LP supply burned or locked."
+                        },
+                        "confidence": {
+                          "type": "string",
+                          "enum": [
+                            "high",
+                            "medium",
+                            "low"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "snipers": {
+                      "type": "object",
+                      "properties": {
+                        "share": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        },
+                        "sniperPct": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        },
+                        "confidence": {
+                          "type": "string",
+                          "enum": [
+                            "high",
+                            "medium",
+                            "low"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "cached": {
+            "type": "boolean"
+          },
+          "stale": {
+            "type": "boolean"
+          },
+          "cacheAgeMs": {
+            "type": "integer"
+          }
+        }
+      },
+      "outputExample": {
+        "summary": "2 Solana tokens, ranked by 24h volume after down-ranking thin, new, and wash-like books. Top is BONK with $18,000,000 24h volume and $4,200,000 liquidity. 1 of 2 have risk flags.",
+        "tokens": [
+          {
+            "rank": 1,
+            "symbol": "BONK",
+            "liquidityUsd": 4200000,
+            "volume24hUsd": 18000000,
+            "ageHours": 8000,
+            "riskFlags": [],
+            "riskScore": 0,
+            "riskLevel": "low",
+            "checks": {
+              "holders": {
+                "top10Share": 0.18,
+                "holderPct": 18,
+                "confidence": "high",
+                "note": "Top 10 holders control 18% of supply."
+              },
+              "authorities": {
+                "mintAuthority": null,
+                "freezeAuthority": null,
+                "mintStatus": "revoked",
+                "freezeStatus": "revoked",
+                "confidence": "high",
+                "note": "Mint authority is revoked. Freeze authority is revoked."
+              },
+              "lp": {
+                "status": "burned",
+                "lockedPct": 100,
+                "confidence": "high",
+                "note": "LP is burned. Burn addresses hold 100% of the LP supply."
+              },
+              "snipers": {
+                "share": 0.04,
+                "sniperPct": 4,
+                "confidence": "high",
+                "note": "Snipers and bundled wallets took 4% of supply in the earliest slots."
+              }
+            },
+            "verdict": "Low risk: top 10 hold 18%, authorities are revoked, LP is burned, and snipers took 4%.",
+            "marketCapUsd": 1800000000,
+            "pump": {
+              "status": "not_pump",
+              "progressPct": null,
+              "confidence": "high"
+            },
+            "links": {
+              "dexscreener": "https://dexscreener.com/solana/bonk",
+              "solscan": "https://solscan.io/token/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+              "pumpfun": null
+            }
+          },
+          {
+            "rank": 2,
+            "symbol": "NEWCOIN",
+            "liquidityUsd": 38000,
+            "volume24hUsd": 910000,
+            "ageHours": 3,
+            "riskFlags": [
+              "newly_launched",
+              "wash_suspect",
+              "Top 10 holders control 64% of supply.",
+              "Mint authority is still active, so the issuer can create more tokens.",
+              "LP is unlocked, so liquidity can be pulled.",
+              "Snipers and bundled wallets took 31% of supply in the earliest slots."
+            ],
+            "riskScore": 100,
+            "riskLevel": "high",
+            "checks": {
+              "holders": {
+                "top10Share": 0.64,
+                "holderPct": 64,
+                "confidence": "high",
+                "note": "Top 10 holders control 64% of supply."
+              },
+              "authorities": {
+                "mintAuthority": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+                "freezeAuthority": null,
+                "mintStatus": "active",
+                "freezeStatus": "revoked",
+                "confidence": "high",
+                "note": "Mint authority is still active, so the issuer can create more tokens. Freeze authority is revoked."
+              },
+              "lp": {
+                "status": "unlocked",
+                "lockedPct": 0,
+                "confidence": "high",
+                "note": "LP is unlocked, so liquidity can be pulled."
+              },
+              "snipers": {
+                "share": 0.31,
+                "sniperPct": 31,
+                "confidence": "high",
+                "note": "Snipers and bundled wallets took 31% of supply in the earliest slots."
+              }
+            },
+            "verdict": "High risk: top 10 hold 64%, mint authority is live, LP is unlocked, and snipers took 31%.",
+            "marketCapUsd": 90000,
+            "pump": {
+              "status": "bonding",
+              "progressPct": 42,
+              "confidence": "high"
+            }
+          }
+        ],
+        "summaryBlock": {
+          "returned": 2,
+          "scanned": 2,
+          "byRiskLevel": {
+            "low": 1,
+            "medium": 0,
+            "high": 1,
+            "unknown": 0
+          },
+          "topMovers": [
+            {
+              "rank": 2,
+              "mint": "new",
+              "symbol": "NEWCOIN",
+              "priceChangePct": 140,
+              "window": "h24"
+            }
+          ]
+        },
+        "timestamps": {
+          "asOf": "2026-10-24T00:00:00.000Z",
+          "generatedAt": "2026-10-24T00:00:00.000Z"
+        },
+        "etag": "c4f0a2e8b91d4c6e8a0b1d2f3a4c5e6d7f8091a2b3c4d5e6f708192a3b4c5d6e"
+      },
+      "example": {
+        "limit": "15",
+        "minLiquidity": "15000",
+        "maxRisk": "high"
+      },
+      "tags": [
+        "solana",
+        "rug-check",
+        "trending",
+        "memecoin",
+        "risk",
+        "x402"
+      ],
+      "categories": [
+        "solana",
+        "rug-check",
+        "trending",
+        "memecoin",
+        "risk"
+      ],
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+          "amount": "5000",
+          "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "payTo": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+          "decimals": 6
+        },
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "5000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0xa30f3C68f2F6067EE5b9d5f651426E44Ea8AdAE9",
+          "decimals": 6
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/wallet/funding",
+      "url": "https://solana-wallet-intel-phi.vercel.app/wallet/funding",
+      "description": "Use this when you need a wallet's first SOL funder and whether other wallets look like the same operator. Find a wallet's first SOL funder, flag wallets that share that funder or a CEX deposit address, and return a cluster id with plain-language sybil risk reasons. Labeled exchange hot wallets are not used as a cluster. Optional peers compares up to 8 other wallets.",
+      "mimeType": "application/json",
+      "protocol": "x402",
+      "scheme": "exact",
+      "price": "$0.009",
+      "amount": "9000",
+      "currency": "USDC",
+      "decimals": 6,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Solana wallet address in base58 (32 to 44 characters). Unpaid requests return HTTP 402. A signed request with an invalid address returns HTTP 400 and is not charged."
+          },
+          "peers": {
+            "type": "string",
+            "description": "Comma-separated peer wallets to compare, up to 8. Each must be base58. The primary address is rejected. Unpaid requests return HTTP 402. A signed request with invalid peers returns HTTP 400 and is not charged. Wallets that share a personal first funder or a CEX deposit address join one cluster."
+          }
+        },
+        "required": [
+          "address"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "outputExample": {
+        "address": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+        "summary": "First SOL came from a personal funder. Peer wallets that share that funder are one cluster. Cluster id is funder:So11111111111111111111111111111111111111112.",
+        "funder": {
+          "address": "So11111111111111111111111111111111111111112",
+          "exchange": null,
+          "amountSol": 1.5
+        },
+        "cexDeposit": null,
+        "cluster": {
+          "id": "funder:So11111111111111111111111111111111111111112",
+          "key": "funder",
+          "members": [
+            "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM"
+          ]
+        },
+        "risk": {
+          "level": "high",
+          "reasons": [
+            "Peer wallets share that first SOL funder. Wallets opened by the same funder are often one operator or a sybil set."
+          ]
+        }
+      },
+      "example": {
+        "address": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+        "peers": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+      },
+      "tags": [
+        "solana",
+        "wallet",
+        "x402"
+      ],
+      "categories": [
+        "solana",
+        "wallet"
+      ],
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+          "amount": "9000",
+          "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "payTo": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+          "decimals": 6
+        },
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "9000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0xa30f3C68f2F6067EE5b9d5f651426E44Ea8AdAE9",
+          "decimals": 6
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/wallet/quick",
+      "url": "https://solana-wallet-intel-phi.vercel.app/wallet/quick",
+      "description": "Use this for a cheap copy-trade screen before paying for a full profile. Cheap copy-trade screen for one wallet: windowed realized PnL, win rate, closed trades, last active time, bot, exchange, net-winner and dormant flags, plus copyTradeScore and copyTradeGrade (copy-return after a 3s delay and a 3.6% round trip, win rate, sample-size shrinkage, bot and insider penalties). Free teaser at /wallet/preview; full report at /wallet/profile.",
+      "mimeType": "application/json",
+      "protocol": "x402",
+      "scheme": "exact",
+      "price": "$0.002",
+      "amount": "2000",
+      "currency": "USDC",
+      "decimals": 6,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Solana wallet address in base58 (32 to 44 characters). Unpaid requests return HTTP 402. A signed request with an invalid address returns HTTP 400 and is not charged."
+          }
+        },
+        "required": [
+          "address"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "outputExample": {
+        "address": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+        "realizedUsd": 42.1,
+        "winRate": 0.6,
+        "closedTrades": 5,
+        "bot": false,
+        "exchangeLike": false,
+        "netWinner": true,
+        "dormant": false,
+        "portfolioUsd": 1280.4,
+        "lastActiveAt": "2026-10-23T18:00:00.000Z",
+        "windowTransactions": 25,
+        "copyTradeScore": 0.556,
+        "copyTradeGrade": "C"
+      },
+      "example": {
+        "address": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM"
+      },
+      "tags": [
+        "solana",
+        "wallet",
+        "x402"
+      ],
+      "categories": [
+        "solana",
+        "wallet"
+      ],
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+          "amount": "2000",
+          "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "payTo": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+          "decimals": 6
+        },
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "2000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0xa30f3C68f2F6067EE5b9d5f651426E44Ea8AdAE9",
+          "decimals": 6
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/wallet/quick/batch",
+      "url": "https://solana-wallet-intel-phi.vercel.app/wallet/quick/batch",
+      "description": "Quick screen (windowed realized PnL, win rate, copyTradeScore, copyTradeGrade, bot, exchange, net-winner and dormant flags) for up to 10 Solana wallets in one paid call, ranked by realized PnL. Pass addresses comma-separated.",
+      "mimeType": "application/json",
+      "protocol": "x402",
+      "scheme": "exact",
+      "price": "$0.015",
+      "amount": "15000",
+      "currency": "USDC",
+      "decimals": 6,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "addresses": {
+            "type": "string",
+            "description": "1 to 10 comma-separated base58 Solana wallet addresses. Unpaid requests return HTTP 402. A signed request with a bad list returns HTTP 400 and is not charged."
+          }
+        },
+        "required": [
+          "addresses"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "outputExample": {
+        "asOf": "2026-10-24T12:00:00.000Z",
+        "wallets": [
+          {
+            "address": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+            "realizedUsd": 42.1,
+            "winRate": 0.6,
+            "bot": false,
+            "smartMoney": false,
+            "copyTradeScore": 0.556,
+            "copyTradeGrade": "C"
+          }
+        ],
+        "errors": []
+      },
+      "example": {
+        "addresses": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM,suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK"
+      },
+      "tags": [
+        "solana",
+        "wallet",
+        "x402"
+      ],
+      "categories": [
+        "solana",
+        "wallet"
+      ],
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+          "amount": "15000",
+          "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "payTo": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+          "decimals": 6
+        },
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "15000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0xa30f3C68f2F6067EE5b9d5f651426E44Ea8AdAE9",
+          "decimals": 6
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/payee/check",
+      "url": "https://solana-wallet-intel-phi.vercel.app/payee/check",
+      "description": "Call this before your agent pays an unfamiliar x402 payTo address or endpoint. Checks public sanctions lists (OFAC SDN crypto addresses), the ScamSniffer scam list, on-chain wallet age, activity and program status on Solana or Base, and optionally the endpoint's unpaid 402 challenge (payTo mismatch, price outliers). Returns verdict ok, caution, do_not_pay or unknown, a 0-100 score, flags with evidence, and missing_fields. Unknown is never reported as safe. If every source is unreachable the call returns HTTP 502 and you are not charged.",
+      "mimeType": "application/json",
+      "protocol": "x402",
+      "scheme": "exact",
+      "price": "$0.0019",
+      "amount": "1900",
+      "currency": "USDC",
+      "decimals": 6,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "payTo": {
+            "type": "string",
+            "description": "Payee address: Solana base58 (network=solana) or 0x address (network=base). Invalid input returns HTTP 400 and is not charged."
+          },
+          "network": {
+            "type": "string",
+            "description": "solana (default) or base."
+          },
+          "endpoint": {
+            "type": "string",
+            "description": "Optional x402 endpoint URL. Its unpaid 402 challenge is read (never paid) and compared to payTo."
+          },
+          "price": {
+            "type": "string",
+            "description": "Optional quoted price in USD, compared to the Bazaar median."
+          }
+        },
+        "required": [
+          "payTo"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "outputExample": {
+        "schema": "falcon.payee.v1",
+        "verdict": "ok",
+        "score_0_100": 82,
+        "flags": [],
+        "missing_fields": []
+      },
+      "example": {
+        "payTo": "0xa30f3C68f2F6067EE5b9d5f651426E44Ea8AdAE9",
+        "network": "base"
+      },
+      "tags": [
+        "x402",
+        "payee",
+        "trust",
+        "sanctions",
+        "scam",
+        "solana",
+        "base"
+      ],
+      "categories": [
+        "payee",
+        "trust",
+        "sanctions",
+        "scam",
+        "solana",
+        "base"
+      ],
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+          "amount": "1900",
+          "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "payTo": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+          "decimals": 6
+        },
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "1900",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0xa30f3C68f2F6067EE5b9d5f651426E44Ea8AdAE9",
+          "decimals": 6
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/xstock/status",
+      "url": "https://solana-wallet-intel-phi.vercel.app/xstock/status",
+      "description": "Call this before your agent trades or prices a Solana tokenized stock (xStocks, Backpack Securities, Ondo, Securitize). Returns whether the mint is a known issuer mint, an unconfirmed issuer mint, a lookalike imitating a listed ticker, or not a stock token, plus the count of issuer objections to third-party tokenized trading by venue (e.g. OKXICE). Verdict falls back to unknown when metadata cannot be read; unknown is never reported as legitimate. Descriptive data only, not advice.",
+      "mimeType": "application/json",
+      "protocol": "x402",
+      "scheme": "exact",
+      "price": "$0.004",
+      "amount": "4000",
+      "currency": "USDC",
+      "decimals": 6,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mint": {
+            "type": "string",
+            "description": "Solana token mint (base58). Invalid input returns HTTP 400 and is not charged."
+          }
+        },
+        "required": [
+          "mint"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "outputExample": {
+        "schema": "falcon.xstock.v1",
+        "verdict": "known_issuer_mint",
+        "issuer": {
+          "name": "xStocks (Backed Finance)",
+          "symbol": "AAPLx"
+        },
+        "objections": {
+          "count": 0
+        }
+      },
+      "example": {
+        "mint": "XsbEhLAtcf6HdfpFZ5xEMdqW8nfAvcsP5bdudRLJzJp"
+      },
+      "tags": [
+        "solana",
+        "tokenized-stocks",
+        "xstocks",
+        "rwa",
+        "impersonation",
+        "x402"
+      ],
+      "categories": [
+        "solana",
+        "tokenized-stocks",
+        "xstocks",
+        "rwa",
+        "impersonation"
+      ],
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+          "amount": "4000",
+          "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "payTo": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+          "decimals": 6
+        },
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "4000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0xa30f3C68f2F6067EE5b9d5f651426E44Ea8AdAE9",
+          "decimals": 6
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/xstock/full",
+      "url": "https://solana-wallet-intel-phi.vercel.app/xstock/full",
+      "description": "Everything in xstock_status plus every listed issuer mint for the same underlying ticker, each issuer objection with venue, notice date and source, live token metadata, data snapshot dates and known gaps. Descriptive data only, not advice.",
+      "mimeType": "application/json",
+      "protocol": "x402",
+      "scheme": "exact",
+      "price": "$0.008",
+      "amount": "8000",
+      "currency": "USDC",
+      "decimals": 6,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mint": {
+            "type": "string",
+            "description": "Solana token mint (base58). Invalid input returns HTTP 400 and is not charged."
+          }
+        },
+        "required": [
+          "mint"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "outputExample": {
+        "schema": "falcon.xstock.v1",
+        "verdict": "lookalike_of_listed_ticker",
+        "listed_issuer_mints_for_underlying": []
+      },
+      "example": {
+        "mint": "XsbEhLAtcf6HdfpFZ5xEMdqW8nfAvcsP5bdudRLJzJp"
+      },
+      "tags": [
+        "solana",
+        "tokenized-stocks",
+        "xstocks",
+        "rwa",
+        "issuer-objections",
+        "x402"
+      ],
+      "categories": [
+        "solana",
+        "tokenized-stocks",
+        "xstocks",
+        "rwa",
+        "issuer-objections"
+      ],
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+          "amount": "8000",
+          "asset": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "payTo": "HD1ryR3dYSXBVNGfJZydbpmnChiE1wrAQkupWWtHt4pM",
+          "decimals": 6
+        },
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "8000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0xa30f3C68f2F6067EE5b9d5f651426E44Ea8AdAE9",
+          "decimals": 6
+        }
+      ]
+    },
+    "https://falcon-comps.vercel.app/v1/financials",
+    "https://falcon-comps.vercel.app/v1/comps",
+    "https://falcon-comps.vercel.app/v1/credit",
+    "https://falcon-comps.vercel.app/v1/lbo",
+    "https://falcon-structures.vercel.app/v1/quote",
+    "https://falcondocs.vercel.app/v1/extract",
+    "https://falcondocs.vercel.app/v1/bank-statement",
+    {
+      "method": "GET",
+      "path": "/v1/seller/report",
+      "url": "https://falcon-sol-agents.vercel.app/v1/seller/report",
+      "description": "falcon.sol: Use this before paying an unfamiliar x402 seller. Send a seller host from the free index at /sellers.json; get a verdict (ok, caution, do_not_pay, unknown) built from live unpaid probes of up to 5 of its listed endpoints: liveness, latency, whether each returns a well-formed 402, whether the live price and payTo match what the CDP Bazaar advertises, and delivery signals. Unknown hosts return 404 before payment. Signed Ed25519 receipt on every paid response. $0.01 USDC on Base.",
+      "mimeType": "application/json",
+      "protocol": "x402",
+      "scheme": "exact",
+      "price": "$0.01",
+      "amount": "10000",
+      "currency": "USDC",
+      "decimals": 6,
+      "network": "eip155:8453",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string",
+            "description": "Seller hostname from the free index at /sellers.json, e.g. falcon-comps.vercel.app. Unknown hosts return 404 before payment."
+          }
+        },
+        "required": [
+          "host"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "outputExample": {
+        "host": "api.example.com",
+        "verdict": "caution",
+        "summary": "4 of 5 probed endpoints returned a valid 402; 3 at the advertised price; 4 to the advertised payTo.",
+        "reasons": [
+          "1 live price(s) differ from the Bazaar listing"
+        ]
+      }
+    }
+  ],
+  "services": [
+    {
+      "url": "https://solana-wallet-intel-phi.vercel.app",
+      "discovery": "https://solana-wallet-intel-phi.vercel.app/.well-known/x402"
+    },
+    {
+      "url": "https://falcon-comps.vercel.app",
+      "discovery": "https://falcon-comps.vercel.app/.well-known/x402"
+    },
+    {
+      "url": "https://falcon-structures.vercel.app",
+      "discovery": "https://falcon-structures.vercel.app/.well-known/x402"
+    },
+    {
+      "url": "https://falcondocs.vercel.app",
+      "discovery": "https://falcondocs.vercel.app/.well-known/x402"
+    }
+  ],
+  "mcp": "https://falcon-sol-agents.vercel.app/mcp",
+  "instructions": "falcon.sol x402 hub. Each resource returns HTTP 402 with payment requirements; see each service's /.well-known/x402 for prices. MCP gateway: POST JSON-RPC to /mcp.",
+  "free": [
+    {
+      "url": "https://falcon-sol-agents.vercel.app/sellers.json",
+      "description": "Free index of every x402 seller on the CDP Bazaar, grouped by host."
+    },
+    {
+      "url": "https://falcon-sol-agents.vercel.app/v1/seller/lookup?host=<host>",
+      "description": "Free listing for one seller."
+    }
+  ],
+  "bundles": [
+    {
+      "id": "agent_spend_firewall",
+      "name": "Agent spend firewall",
+      "description": "Three x402 checks an agent runs before it spends: (1) payee_check ($0.0019) before paying an unfamiliar x402 payTo, (2) seller report ($0.01) to probe a seller's endpoints for uptime, valid 402s and price/payTo drift, (3) pretrade ($0.012) before buying a Solana token. Each returns ok, caution, do_not_pay/avoid or unknown; unknown is never ok. Failures return 502 before settlement, so you are not charged.",
+      "steps": [
+        {
+          "tool": "payee_check",
+          "method": "GET",
+          "url": "https://solana-wallet-intel-phi.vercel.app/payee/check?payTo=<addr>&network=base|solana",
+          "price": "$0.0019",
+          "when": "Before paying any unfamiliar x402 payTo."
+        },
+        {
+          "tool": "seller_report",
+          "method": "GET",
+          "url": "https://falcon-sol-agents.vercel.app/v1/seller/report?host=<host>",
+          "price": "$0.01",
+          "when": "Before relying on a new x402 seller host."
+        },
+        {
+          "tool": "pretrade",
+          "method": "GET",
+          "url": "https://solana-wallet-intel-phi.vercel.app/pretrade?mint=<mint>&symbol=<ticker>",
+          "price": "$0.012",
+          "when": "Before buying a Solana token."
+        }
+      ],
+      "free": [
+        "https://solana-wallet-intel-phi.vercel.app/rug",
+        "https://falcon-sol-agents.vercel.app/sellers"
+      ]
+    }
+  ]
+}
