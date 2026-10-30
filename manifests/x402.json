@@ -4,7 +4,7 @@
     {
       "method": "GET",
       "path": "/wallet/profile",
-      "url": "https://solana-wallet-intel-phi.vercel.app/wallet/profile",
+      "url": "https://solana-wallet-intel.falcon-sol.workers.dev/wallet/profile",
       "description": "Use this when you need priced holdings and windowed PnL for one Solana wallet. Holdings valued in USD, a short plain-language summary, windowed realized and unrealized PnL, win rate, and evidence-backed labels such as active memecoin trader. Includes copyTradeScore and copyTradeGrade: copy-return after a 3s delay and a 3.6% round trip, win rate, sample-size shrinkage, and bot or insider penalties. The score is null when no close lasted at least 3 seconds. txLimit is an integer from 5 to 25 and defaults to 20. Call free wallet_preview first if you only need SOL balance and last-active time, or wallet_quick for a cheaper copy-trade screen.",
       "mimeType": "application/json",
       "protocol": "x402",
@@ -94,7 +94,7 @@
     {
       "method": "GET",
       "path": "/token/trending",
-      "url": "https://solana-wallet-intel-phi.vercel.app/token/trending",
+      "url": "https://solana-wallet-intel.falcon-sol.workers.dev/token/trending",
       "description": "Use this before you buy, swap, or recommend a Solana memecoin: trending tokens with a rug-check on each one. Every token gets a riskScore (0 to 100), a riskLevel, and a one-line verdict backed by top-10 holder share, mint and freeze authority, LP lock, and sniper or bundle share of early supply, plus liquidity, market cap, 5m/1h/24h price and volume, and pump.fun status. Unreadable checks are marked unknown, never called safe. $0.005 USDC, free preview at /token/trending/preview. The list includes liquidity, market cap, pair age, 5m/1h/24h price and volume, buy/sell ratio, pump.fun bonding or graduation, and links to pump.fun, DexScreener, and Solscan. Each token has a one-line verdict, riskScore (0 clean to 100), riskLevel (low, medium, high, or unknown), and a risk breakdown with evidence and confidence: top-10 share, mint and freeze authority, LP lock percent, and sniper or bundle share of early supply. riskLevel is unknown when the holder, authority, LP, and sniper checks are all unread, and maxRisk leaves those tokens out. Holder percent falls back to the public RugCheck report at medium confidence when the public RPC cannot list the largest accounts. A successful RPC holder read is kept. Holder-concentration change over 5m/1h/24h is filled when this process has seen the mint before. A check that cannot be read says so, uses low confidence, and is not flagged. On-chain safety flags are plain-English sentences that fire when the top 10 holders own 50% or more, mint or freeze authority is still active, LP is unlocked, or snipers and bundled wallets took 20% or more of early supply. Market flags are short codes: low_liquidity, thin_volume, newly_launched, extreme_move, wash_suspect, paid_boost. Thin, new, and wash-like books are ranked down. The summary block counts tokens by risk level and names the top movers. limit is an integer from 1 to 25 and defaults to 15. minLiquidity is an optional USD floor. maxRisk is low, medium, high, or an integer from 0 to 100.",
       "mimeType": "application/json",
       "protocol": "x402",
@@ -669,7 +669,7 @@
     {
       "method": "GET",
       "path": "/wallet/funding",
-      "url": "https://solana-wallet-intel-phi.vercel.app/wallet/funding",
+      "url": "https://solana-wallet-intel.falcon-sol.workers.dev/wallet/funding",
       "description": "Use this when you need a wallet's first SOL funder and whether other wallets look like the same operator. Find a wallet's first SOL funder, flag wallets that share that funder or a CEX deposit address, and return a cluster id with plain-language sybil risk reasons. Labeled exchange hot wallets are not used as a cluster. Optional peers compares up to 8 other wallets.",
       "mimeType": "application/json",
       "protocol": "x402",
@@ -755,7 +755,7 @@
     {
       "method": "GET",
       "path": "/wallet/quick",
-      "url": "https://solana-wallet-intel-phi.vercel.app/wallet/quick",
+      "url": "https://solana-wallet-intel.falcon-sol.workers.dev/wallet/quick",
       "description": "Use this for a cheap copy-trade screen before paying for a full profile. Cheap copy-trade screen for one wallet: windowed realized PnL, win rate, closed trades, last active time, bot, exchange, net-winner and dormant flags, plus copyTradeScore and copyTradeGrade (copy-return after a 3s delay and a 3.6% round trip, win rate, sample-size shrinkage, bot and insider penalties). Free teaser at /wallet/preview; full report at /wallet/profile.",
       "mimeType": "application/json",
       "protocol": "x402",
@@ -828,7 +828,7 @@
     {
       "method": "GET",
       "path": "/wallet/quick/batch",
-      "url": "https://solana-wallet-intel-phi.vercel.app/wallet/quick/batch",
+      "url": "https://solana-wallet-intel.falcon-sol.workers.dev/wallet/quick/batch",
       "description": "Quick screen (windowed realized PnL, win rate, copyTradeScore, copyTradeGrade, bot, exchange, net-winner and dormant flags) for up to 10 Solana wallets in one paid call, ranked by realized PnL. Pass addresses comma-separated.",
       "mimeType": "application/json",
       "protocol": "x402",
@@ -901,7 +901,7 @@
     {
       "method": "GET",
       "path": "/payee/check",
-      "url": "https://solana-wallet-intel-phi.vercel.app/payee/check",
+      "url": "https://solana-wallet-intel.falcon-sol.workers.dev/payee/check",
       "description": "Call this before your agent pays an unfamiliar x402 payTo address or endpoint. Checks public sanctions lists (OFAC SDN crypto addresses), the ScamSniffer scam list, on-chain wallet age, activity and program status on Solana or Base, and optionally the endpoint's unpaid 402 challenge (payTo mismatch, price outliers). Returns verdict ok, caution, do_not_pay or unknown, a 0-100 score, flags with evidence, and missing_fields. Unknown is never reported as safe. If every source is unreachable the call returns HTTP 502 and you are not charged.",
       "mimeType": "application/json",
       "protocol": "x402",
@@ -987,7 +987,7 @@
     {
       "method": "GET",
       "path": "/xstock/status",
-      "url": "https://solana-wallet-intel-phi.vercel.app/xstock/status",
+      "url": "https://solana-wallet-intel.falcon-sol.workers.dev/xstock/status",
       "description": "Call this before your agent trades or prices a Solana tokenized stock (xStocks, Backpack Securities, Ondo, Securitize). Returns whether the mint is a known issuer mint, an unconfirmed issuer mint, a lookalike imitating a listed ticker, or not a stock token, plus the count of issuer objections to third-party tokenized trading by venue (e.g. OKXICE). Verdict falls back to unknown when metadata cannot be read; unknown is never reported as legitimate. Descriptive data only, not advice.",
       "mimeType": "application/json",
       "protocol": "x402",
@@ -1062,7 +1062,7 @@
     {
       "method": "GET",
       "path": "/xstock/full",
-      "url": "https://solana-wallet-intel-phi.vercel.app/xstock/full",
+      "url": "https://solana-wallet-intel.falcon-sol.workers.dev/xstock/full",
       "description": "Everything in xstock_status plus every listed issuer mint for the same underlying ticker, each issuer objection with venue, notice date and source, live token metadata, data snapshot dates and known gaps. Descriptive data only, not advice.",
       "mimeType": "application/json",
       "protocol": "x402",
@@ -1128,17 +1128,17 @@
         }
       ]
     },
-    "https://falcon-comps.vercel.app/v1/financials",
-    "https://falcon-comps.vercel.app/v1/comps",
-    "https://falcon-comps.vercel.app/v1/credit",
-    "https://falcon-comps.vercel.app/v1/lbo",
-    "https://falcon-structures.vercel.app/v1/quote",
-    "https://falcondocs.vercel.app/v1/extract",
-    "https://falcondocs.vercel.app/v1/bank-statement",
+    "https://falcon-comps.falcon-sol.workers.dev/v1/financials",
+    "https://falcon-comps.falcon-sol.workers.dev/v1/comps",
+    "https://falcon-comps.falcon-sol.workers.dev/v1/credit",
+    "https://falcon-comps.falcon-sol.workers.dev/v1/lbo",
+    "https://falcon-structures.falcon-sol.workers.dev/v1/quote",
+    "https://falcon-docs.falcon-sol.workers.dev/v1/extract",
+    "https://falcon-docs.falcon-sol.workers.dev/v1/bank-statement",
     {
       "method": "GET",
       "path": "/v1/seller/report",
-      "url": "https://falcon-sol-agents.vercel.app/v1/seller/report",
+      "url": "https://falcon-sol-agents.falcon-sol.workers.dev/v1/seller/report",
       "description": "falcon.sol: Use this before paying an unfamiliar x402 seller. Send a seller host from the free index at /sellers.json; get a verdict (ok, caution, do_not_pay, unknown) built from live unpaid probes of up to 5 of its listed endpoints: liveness, latency, whether each returns a well-formed 402, whether the live price and payTo match what the CDP Bazaar advertises, and delivery signals. Unknown hosts return 404 before payment. Signed Ed25519 receipt on every paid response. $0.01 USDC on Base.",
       "mimeType": "application/json",
       "protocol": "x402",
@@ -1153,7 +1153,7 @@
         "properties": {
           "host": {
             "type": "string",
-            "description": "Seller hostname from the free index at /sellers.json, e.g. falcon-comps.vercel.app. Unknown hosts return 404 before payment."
+            "description": "Seller hostname from the free index at /sellers.json, e.g. falcon-comps.falcon-sol.workers.dev. Unknown hosts return 404 before payment."
           }
         },
         "required": [
@@ -1175,31 +1175,31 @@
   ],
   "services": [
     {
-      "url": "https://solana-wallet-intel-phi.vercel.app",
-      "discovery": "https://solana-wallet-intel-phi.vercel.app/.well-known/x402"
+      "url": "https://solana-wallet-intel.falcon-sol.workers.dev",
+      "discovery": "https://solana-wallet-intel.falcon-sol.workers.dev/.well-known/x402"
     },
     {
-      "url": "https://falcon-comps.vercel.app",
-      "discovery": "https://falcon-comps.vercel.app/.well-known/x402"
+      "url": "https://falcon-comps.falcon-sol.workers.dev",
+      "discovery": "https://falcon-comps.falcon-sol.workers.dev/.well-known/x402"
     },
     {
-      "url": "https://falcon-structures.vercel.app",
-      "discovery": "https://falcon-structures.vercel.app/.well-known/x402"
+      "url": "https://falcon-structures.falcon-sol.workers.dev",
+      "discovery": "https://falcon-structures.falcon-sol.workers.dev/.well-known/x402"
     },
     {
-      "url": "https://falcondocs.vercel.app",
-      "discovery": "https://falcondocs.vercel.app/.well-known/x402"
+      "url": "https://falcon-docs.falcon-sol.workers.dev",
+      "discovery": "https://falcon-docs.falcon-sol.workers.dev/.well-known/x402"
     }
   ],
-  "mcp": "https://falcon-sol-agents.vercel.app/mcp",
+  "mcp": "https://falcon-sol-agents.falcon-sol.workers.dev/mcp",
   "instructions": "falcon.sol x402 hub. Each resource returns HTTP 402 with payment requirements; see each service's /.well-known/x402 for prices. MCP gateway: POST JSON-RPC to /mcp.",
   "free": [
     {
-      "url": "https://falcon-sol-agents.vercel.app/sellers.json",
+      "url": "https://falcon-sol-agents.falcon-sol.workers.dev/sellers.json",
       "description": "Free index of every x402 seller on the CDP Bazaar, grouped by host."
     },
     {
-      "url": "https://falcon-sol-agents.vercel.app/v1/seller/lookup?host=<host>",
+      "url": "https://falcon-sol-agents.falcon-sol.workers.dev/v1/seller/lookup?host=<host>",
       "description": "Free listing for one seller."
     }
   ],
@@ -1212,28 +1212,28 @@
         {
           "tool": "payee_check",
           "method": "GET",
-          "url": "https://solana-wallet-intel-phi.vercel.app/payee/check?payTo=<addr>&network=base|solana",
+          "url": "https://solana-wallet-intel.falcon-sol.workers.dev/payee/check?payTo=<addr>&network=base|solana",
           "price": "$0.0019",
           "when": "Before paying any unfamiliar x402 payTo."
         },
         {
           "tool": "seller_report",
           "method": "GET",
-          "url": "https://falcon-sol-agents.vercel.app/v1/seller/report?host=<host>",
+          "url": "https://falcon-sol-agents.falcon-sol.workers.dev/v1/seller/report?host=<host>",
           "price": "$0.01",
           "when": "Before relying on a new x402 seller host."
         },
         {
           "tool": "pretrade",
           "method": "GET",
-          "url": "https://solana-wallet-intel-phi.vercel.app/pretrade?mint=<mint>&symbol=<ticker>",
+          "url": "https://solana-wallet-intel.falcon-sol.workers.dev/pretrade?mint=<mint>&symbol=<ticker>",
           "price": "$0.012",
           "when": "Before buying a Solana token."
         }
       ],
       "free": [
-        "https://solana-wallet-intel-phi.vercel.app/rug",
-        "https://falcon-sol-agents.vercel.app/sellers"
+        "https://solana-wallet-intel.falcon-sol.workers.dev/rug",
+        "https://falcon-sol-agents.falcon-sol.workers.dev/sellers"
       ]
     }
   ]

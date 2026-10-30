@@ -3,25 +3,25 @@
 > Pay-per-call (x402, USDC on Base) data APIs for AI agents: Solana wallet intel, payee checks, comps, structures, docs, deal radar. Signed Ed25519 receipts; failed upstream calls are not charged.
 
 ## Discovery
-- [x402 manifest](https://falcon-sol-agents.vercel.app/.well-known/x402): every paid route with price and schema
-- [A2A agent card](https://falcon-sol-agents.vercel.app/.well-known/agent-card.json) and [MCP server card](https://falcon-sol-agents.vercel.app/.well-known/mcp/server-card.json): static tool list for registries and agent clients
-- [MCP endpoint](https://falcon-sol-agents.vercel.app/mcp): streamable-http MCP server
+- [x402 manifest](https://falcon-sol-agents.falcon-sol.workers.dev/.well-known/x402): every paid route with price and schema
+- [A2A agent card](https://falcon-sol-agents.falcon-sol.workers.dev/.well-known/agent-card.json) and [MCP server card](https://falcon-sol-agents.falcon-sol.workers.dev/.well-known/mcp/server-card.json): static tool list for registries and agent clients
+- [MCP endpoint](https://falcon-sol-agents.falcon-sol.workers.dev/mcp): streamable-http MCP server
 - [MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=ygfalcon)
 
 ## Services
-- [Solana wallet intel](https://solana-wallet-intel-phi.vercel.app): holdings, PnL, copy-trade score, payee check
-- [falcon-comps](https://falcon-comps.vercel.app): comps data, /status uptime
-- [falcon-structures](https://falcon-structures.vercel.app)
-- [falcon-docs](https://falcondocs.vercel.app)
-- [deal-radar](https://deal-radar-x402.vercel.app)
+- [Solana wallet intel](https://solana-wallet-intel.falcon-sol.workers.dev): holdings, PnL, copy-trade score, payee check
+- [falcon-comps](https://falcon-comps.falcon-sol.workers.dev): comps data, /status uptime
+- [falcon-structures](https://falcon-structures.falcon-sol.workers.dev)
+- [falcon-docs](https://falcon-docs.falcon-sol.workers.dev)
+- [deal-radar](https://deal-radar.falcon-sol.workers.dev)
 
 ## Agent spend firewall (bundle)
 Three x402 checks an agent runs before it spends: (1) payee_check ($0.0019) before paying an unfamiliar x402 payTo, (2) seller report ($0.01) to probe a seller's endpoints for uptime, valid 402s and price/payTo drift, (3) pretrade ($0.012) before buying a Solana token. Each returns ok, caution, do_not_pay/avoid or unknown; unknown is never ok. Failures return 502 before settlement, so you are not charged.
-1. `payee_check` $0.0019: Before paying any unfamiliar x402 payTo. GET https://solana-wallet-intel-phi.vercel.app/payee/check?payTo=<addr>&network=base|solana
-2. `seller_report` $0.01: Before relying on a new x402 seller host. GET https://falcon-sol-agents.vercel.app/v1/seller/report?host=<host>
-3. `pretrade` $0.012: Before buying a Solana token. GET https://solana-wallet-intel-phi.vercel.app/pretrade?mint=<mint>&symbol=<ticker>
-- Free first: [rug check](https://solana-wallet-intel-phi.vercel.app/rug), [seller index](https://falcon-sol-agents.vercel.app/sellers)
+1. `payee_check` $0.0019: Before paying any unfamiliar x402 payTo. GET https://solana-wallet-intel.falcon-sol.workers.dev/payee/check?payTo=<addr>&network=base|solana
+2. `seller_report` $0.01: Before relying on a new x402 seller host. GET https://falcon-sol-agents.falcon-sol.workers.dev/v1/seller/report?host=<host>
+3. `pretrade` $0.012: Before buying a Solana token. GET https://solana-wallet-intel.falcon-sol.workers.dev/pretrade?mint=<mint>&symbol=<ticker>
+- Free first: [rug check](https://solana-wallet-intel.falcon-sol.workers.dev/rug), [seller index](https://falcon-sol-agents.falcon-sol.workers.dev/sellers)
 
 ## x402 seller verification
-- [Seller index](https://falcon-sol-agents.vercel.app/sellers): every x402 seller on the CDP Bazaar (2,700+ hosts), free; JSON at /sellers.json
+- [Seller index](https://falcon-sol-agents.falcon-sol.workers.dev/sellers): every x402 seller on the CDP Bazaar (2,700+ hosts), free; JSON at /sellers.json
 - Use this before paying an unfamiliar x402 seller: GET /v1/seller/report?host=<host> ($0.01 USDC on Base). Verdict ok, caution, do_not_pay or unknown from unpaid probes: liveness, valid 402, live price vs listing, payTo match. Free lookup at /v1/seller/lookup?host=<host>. OpenAPI: /openapi.json

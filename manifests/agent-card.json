@@ -2,14 +2,14 @@
  "protocolVersion": "0.3.0",
  "name": "falcon.sol",
  "description": "Use when an agent needs Solana wallet risk checks, wallet PnL and smart-money signals, payee safety checks, SEC financials and comps, LBO and credit models, or deal docs: one MCP endpoint, 20 read-only tools, paid per call via x402 USDC with signed receipts.",
- "url": "https://falcon-sol-agents.vercel.app/mcp",
+ "url": "https://falcon-sol-agents.falcon-sol.workers.dev/mcp",
  "preferredTransport": "JSONRPC",
  "provider": {
   "organization": "falcon.sol",
-  "url": "https://falcon-sol-agents.vercel.app"
+  "url": "https://falcon-sol-agents.falcon-sol.workers.dev"
  },
  "version": "0.2.0",
- "documentationUrl": "https://falcon-sol-agents.vercel.app/llms-full.txt",
+ "documentationUrl": "https://falcon-sol-agents.falcon-sol.workers.dev/llms-full.txt",
  "capabilities": {
   "streaming": false,
   "pushNotifications": false
@@ -254,11 +254,11 @@
  ],
  "additionalInterfaces": [
   {
-   "url": "https://falcon-sol-agents.vercel.app/mcp",
+   "url": "https://falcon-sol-agents.falcon-sol.workers.dev/mcp",
    "transport": "MCP streamable-http"
   },
   {
-   "url": "https://falcon-sol-agents.vercel.app/.well-known/x402",
+   "url": "https://falcon-sol-agents.falcon-sol.workers.dev/.well-known/x402",
    "transport": "x402 HTTP"
   }
  ]
