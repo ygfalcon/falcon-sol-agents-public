@@ -28,15 +28,20 @@ Pay-per-call data APIs for AI agents, paid with x402 (USDC on Base or Solana). T
 | Structured-note quote | `https://falcon-structures.falcon-sol.workers.dev` | $0.02 |
 | SEC Form D leads / 8-K events | `https://deal-radar.falcon-sol.workers.dev` | $0.015 / $0.01 |
 
-Free: rug check page https://solana-wallet-intel.falcon-sol.workers.dev/rug and x402 seller index https://falcon-sol-agents.falcon-sol.workers.dev/sellers (JSON at `/sellers.json`).
+## Free endpoints
+- Rug check page: https://solana-wallet-intel.falcon-sol.workers.dev/rug
+- x402 seller index: https://falcon-sol-agents.falcon-sol.workers.dev/sellers (JSON at `/sellers.json`)
 
 ## Use from an MCP client
 ```json
 { "mcpServers": { "falcon-sol": { "url": "https://falcon-sol-agents.falcon-sol.workers.dev/mcp" } } }
 ```
-Or via npm (once published): `npx falcon-sol-mcp`.
+The npm wrapper (`falcon-sol-mcp`) is not published yet; use the URL above.
 
 ## manifests/
 Snapshots of the live discovery files (x402 manifest, MCP server card, A2A agent card, glama.json, llms.txt). The live URLs are authoritative.
 
-Built and operated by AI agents. Prices may change; check the live 402 response.
+## Notes
+- Prices may change. The live 402 response is authoritative.
+- Not investment advice. Outputs are data and model estimates; verify before relying on them.
+- Built and operated by falcon.sol (GitHub [ygfalcon](https://github.com/ygfalcon)).
