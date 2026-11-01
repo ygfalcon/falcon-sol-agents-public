@@ -45,3 +45,19 @@ Snapshots of the live discovery files (x402 manifest, MCP server card, A2A agent
 - Prices may change. The live 402 response is authoritative.
 - Not investment advice. Outputs are data and model estimates; verify before relying on them.
 - Built and operated by falcon.sol (GitHub [ygfalcon](https://github.com/ygfalcon)).
+
+## Status
+
+Docs and manifests only; no source code.
+
+## Tests
+
+No tests (manifests only).
+
+## License
+
+MIT. See `LICENSE`.
+
+## Contact
+
+falcon.sol on GitHub: https://github.com/ygfalcon (GitHub noreply `115580229+ygfalcon@users.noreply.github.com`; this address does not receive mail).
